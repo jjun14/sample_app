@@ -24,10 +24,26 @@ module SessionsHelper
     @current_user ||= User.find_by(remember_token: remember_token)
   end
 
+  def current_user?(user)
+    user == current_user
+  end
+
   def sign_out
     current_user.update_attribute(:remember_token, 
                                   User.digest(User.new_remember_token))
     cookies.delete(:remember_token)
     self.current_user = nil
+  end
+
+  #if the request is a get reqest we store the requested URL
+  #in the session variable under the key :return_to
+  #sesion is a hash
+  def store_location
+    session[:return_to] = request.url if request.get?
+  end
+
+  def redirect_back_or(default)
+    redirect_to(session[:return_to] || default)
+    session.delete(:return_to)
   end
 end
