@@ -9,4 +9,11 @@ FactoryGirl.define do
       admin true
     end
 	end
+
+  factory :mike do
+    name     "Michael Hartl"
+    email    "michael@example.com"
+    password "foobar"
+    password_confirmation "foobar"
+  end
 end

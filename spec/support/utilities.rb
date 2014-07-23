@@ -18,6 +18,12 @@ RSpec::Matchers.define :have_success_message do |message|
   end
 end
 
+RSpec::Matchers.define :have_notice do |message|
+  match do |page|
+    expect(page).to have_selector('div.alert.alert-notice', text: message)
+  end
+end
+
 def sign_in(user, options={})
   if options[:no_capybara]
     remember_token = User.new_remember_token
