@@ -10,10 +10,8 @@ FactoryGirl.define do
     end
 	end
 
-  factory :mike do
-    name     "Michael Hartl"
-    email    "michael@example.com"
-    password "foobar"
-    password_confirmation "foobar"
+  factory :micropost do
+    content "Lorem ipsum"
+    user
   end
 end

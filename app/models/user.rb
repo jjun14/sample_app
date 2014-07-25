@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :microposts, dependent: :destroy
 	#attr_accessible :name, :email, :password, :password_confirmation
 	#a callback executes a particular of code at a particular time in the life-cycle
 	#of an active record object
@@ -21,6 +22,10 @@ class User < ActiveRecord::Base
 
   def User.digest(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  def feed
+    Micropost.where("user_id = ?", id)
   end
 
   private
